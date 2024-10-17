@@ -31,3 +31,4 @@ D:\Visual Studio\ShoppingCart\ShoppingCart\obj\Debug\net8.0\ref\ShoppingCart.dll
 D:\Visual Studio\ShoppingCart\ShoppingCart\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\Visual Studio\ShoppingCart\ShoppingCart\obj\Debug\net8.0\ShoppingCart.csproj.AssemblyReference.cache
 D:\Visual Studio\ShoppingCart\ShoppingCart\obj\Debug\net8.0\Shopping.CB5956BC.Up2Date
+D:\Visual Studio\ShoppingCart\ShoppingCart\obj\Debug\net8.0\ShoppingCart.sourcelink.json

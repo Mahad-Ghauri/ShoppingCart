@@ -1,0 +1,26 @@
+﻿@page
+@model ShoppingCart.Pages.OrderConfirmationModel
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+<div class="confirmation-container">
+    <h1>Thank you for your order!</h1>
+    <p>Your order has been placed successfully. We will contact you soon with more details.</p>
+    <a href="/Index" class="btn btn-primary">Back to Shop</a>
+</div>
+
+<style>
+    .confirmation-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
