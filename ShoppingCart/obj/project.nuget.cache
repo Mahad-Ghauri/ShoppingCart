@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "X5299+J+Quc=",
+  "success": true,
+  "projectFilePath": "D:\\Visual Studio\\ShoppingCart\\ShoppingCart\\ShoppingCart.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mahad Ghauri\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

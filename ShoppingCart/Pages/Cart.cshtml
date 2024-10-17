@@ -1,0 +1,142 @@
+﻿@page
+@model ShoppingCart.Pages.CartModel
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="cart-container">
+    <h1>Your Cart</h1>
+
+    @if (Model.cart != null && Model.cart.Count > 0)
+    {
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.cart)
+                {
+                    <tr>
+                        <td>
+                            <div class="cart-product">
+                                <img src="~/Images/@item.Product.Image" class="cart-product-image" />
+                                <span>@item.Product.Name</span>
+                            </div>
+                        </td>
+                        <td>$@item.Product.Price</td>
+                        <td>
+                            <a asp-page-handler="DecreaseProduct" asp-route-id="@item.Product.Id" class="btn btn-secondary">-</a>
+                            <span>@item.Quantity</span>
+                            <a asp-page-handler="IncreaseProduct" asp-route-id="@item.Product.Id" class="btn btn-secondary">+</a>
+                        </td>
+                        <td>$@(item.Quantity * item.Product.Price)</td>
+                        <td>
+                            <a asp-page-handler="RemoveProduct" asp-route-id="@item.Product.Id" class="btn btn-danger">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="cart-actions">
+            <div class="cart-summary">
+                <strong>Total Amount: $@(Model.cart.Sum(x => x.Quantity * x.Product.Price))</strong>
+            </div>
+            <div class="cart-buttons">
+                <a href="/Index" class="btn btn-outline-primary">Continue Shopping</a>
+                <a href="/Checkout" class="btn btn-success">Proceed to Checkout</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>Your cart is empty. <a href="/Index">Go shopping!</a></p>
+    }
+</div>
+
+<style>
+    /* Container for cart */
+    .cart-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title styling */
+    .cart-container h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    /* Cart table styling */
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+    .cart-table th, .cart-table td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .cart-product {
+        display: flex;
+        align-items: center;
+    }
+
+    .cart-product-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        margin-right: 15px;
+    }
+
+    /* Button styling */
+    .btn {
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #ffc107;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+        display: inline-block;
+        padding: 9px 16px;
+        margin-top: 0px;
+    }
+
+    /* Cart summary */
+    .cart-summary {
+        text-align: right;
+    }
+
+    /* Total price styling */
+    .cart-summary strong {
+        font-size: 1.5rem;
+        margin-right: 20px;
+    }
+</style>
