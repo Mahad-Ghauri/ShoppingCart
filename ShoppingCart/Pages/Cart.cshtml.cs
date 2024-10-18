@@ -11,46 +11,83 @@ namespace ShoppingCart.Pages
 
         public List<Item> cart;
 
-        public void OnGet(int id) // To get the id of the product
-        {
-            ProductModel productModel = new();// This will provide the data of the product
+        //public void OnGet(int id) // To get the id of the product
+        //{
+        //    ProductModel productModel = new();// This will provide the data of the product
 
-            // The data saved on the variable named 'cart' get and store it in the cart variable of the type List of Item type
+        //    // The data saved on the variable named 'cart' get and store it in the cart variable of the type List of Item type
+        //    cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+        //    if (cart == null)
+        //    {
+        //        cart = new List<Item>()
+        //        {
+        //            new Item()
+        //            {
+        //                Product = productModel.GetProductById(id),
+        //                Quantity = 1
+        //            }
+        //        };
+
+        //        //This is used to save the data in the session so that the data is not lost if we go forward and backward on the website
+        //        SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
+        //    }
+        //    else
+        //    {
+        //        int checkID = Check_If_Exists(cart, id);
+        //        if (checkID == -1)
+        //        {
+        //            cart.Add(new Item()
+        //            {
+        //                Product = productModel.GetProductById(id),
+        //                Quantity = 1
+        //            });
+        //        }
+        //        else
+        //        {
+        //            cart[checkID].Quantity++;
+        //        }
+
+        //        //This is used to save the data in the session so that the data is not lost if we go forward and backward on the website
+        //        SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
+        //    }
+        //}
+        public void OnGet(int? id = null)
+        {
+            ProductModel productModel = new();
+
+            // Retrieve the cart from session
             cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+
+            // If the cart is null, initialize it as a new empty list
             if (cart == null)
             {
-                cart = new List<Item>()
-                {
-                    new Item()
-                    {
-                        Product = productModel.GetProductById(id),
-                        Quantity = 1
-                    }
-                };
-
-                //This is used to save the data in the session so that the data is not lost if we go forward and backward on the website
-                SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
+                cart = new List<Item>();
             }
-            else
+
+            // Only try to add a product if an id is provided
+            if (id.HasValue)
             {
-                int checkID = Check_If_Exists(cart, id);
+                int checkID = Check_If_Exists(cart, id.Value);
                 if (checkID == -1)
                 {
+                    // Add the product to the cart
                     cart.Add(new Item()
                     {
-                        Product = productModel.GetProductById(id),
+                        Product = productModel.GetProductById(id.Value),
                         Quantity = 1
                     });
                 }
                 else
                 {
+                    // Increase the quantity if the product is already in the cart
                     cart[checkID].Quantity++;
                 }
 
-                //This is used to save the data in the session so that the data is not lost if we go forward and backward on the website
+                // Save the cart to the session
                 SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
             }
         }
+
         public void OnGetIncreaseProduct(int id)
         {
             cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");

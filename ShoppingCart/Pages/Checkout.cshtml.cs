@@ -18,27 +18,39 @@ namespace ShoppingCart.Pages
         [BindProperty]
         public string PaymentMethod { get; set; }
 
-        public void OnGet()
+    
+        public IActionResult OnGet()
         {
             cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+
+            if (cart == null || cart.Count == 0)
+            {
+                TempData["Error"] = "Your cart is empty. Please add items before checkout.";
+                return RedirectToPage("/Cart"); 
+            }
+
+            return Page();
         }
+
+       
 
         public IActionResult OnPost()
         {
-            // Retrieve cart
             cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");
 
-            // Process order logic (e.g., save to database, send confirmation email)
-            if (cart != null && cart.Count > 0)
+            if (cart == null || cart.Count == 0)
             {
-                // Clear cart after successful order
-                SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", null);
+                TempData["Error"] = "Your cart is empty. Cannot proceed with checkout.";
+                return RedirectToPage("/Cart");
+            }
 
-                // Redirect to a confirmation page or display a success message
+            if (ModelState.IsValid)
+            {
+                SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", null);
                 return RedirectToPage("/OrderConfirmation");
             }
 
-            return Page(); // Stay on checkout if there is an issue
+            return Page(); 
         }
     }
 }

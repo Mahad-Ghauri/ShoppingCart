@@ -17,23 +17,24 @@
             </div>
         }
     </div>
+    <a href="/Cart" class="view-cart-btn">View Cart</a>
 </div>
 
 <style>
     /* Container for product listing */
     .shop-container {
-        max-width: 1200px;
+        max-width: 1500px;
         margin: 0 auto;
         padding: 20px;
     }
 
-        /* Title styling */
-        .shop-container h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #333;
-        }
+    /* Title styling */
+    .shop-container h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #333;
+    }
 
     /* Grid layout for product cards */
     .product-grid {
@@ -44,19 +45,23 @@
 
     /* Product card styling */
     .product-card {
-        background-color: #fff;
+        background-color: #FFEEEE;
         padding: 20px;
-        border: 1px solid #e0e0e0;
-        border-radius: 10px;
+        border: none;
+        border-radius: 20px;
         text-align: center;
-        transition: transform 0.2s ease-in-out;
+        justify-content: center;
+        align-items: center;
+        transition-duration: 0.5s;
     }
 
-        /* Hover effect for product cards */
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
+    /* Hover effect for product cards */
+    .product-card:hover {
+        transform: scale(1.08);
+        border-radius: 2rem;
+        border: none;
+        box-shadow: -3px -3px 1rem rgb(0, 0, 0, 0.8);
+    }
 
     /* Product image */
     .product-image {
@@ -92,8 +97,31 @@
         font-size: 1rem;
     }
 
-        /* Button hover */
-        .btn-primary:hover {
-            background-color: #e64a19;
-        }
+    /* Button hover */
+    .btn-primary:hover {
+        background-color: #e64a19;
+    }
+
+    .view-cart-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 77px;
+        background-color: #FFEDBC;
+        color: chocolate;
+        padding: 10px 20px;
+        border-radius: 40px;
+        text-transform: uppercase;
+        text-decoration:none;
+        text-align: center;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition-duration:0.8s;
+    }
+
+    .view-cart-btn:hover {
+        background-color: #ED4264;
+        transform: scale(1.1);
+        color:aliceblue;
+        text-decoration:none;
+    }
 </style>

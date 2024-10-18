@@ -54,7 +54,9 @@
         </div>
 
         <button type="submit" class="btn btn-success">Place Order</button>
+        <a href="/Cart" class="view-cart-btn">View Cart</a>
     </form>
+
 </div>
 
 <style>
@@ -108,5 +110,23 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 1rem;
+    }
+
+    .view-cart-btn {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s;
+    }
+
+    .view-cart-btn:hover {
+        background-color: #0056b3;
     }
 </style>
