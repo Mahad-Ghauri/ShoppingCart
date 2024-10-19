@@ -55,7 +55,7 @@
     }
     else
     {
-        <p>Your cart is empty. <a href="/Index">Go shopping!</a></p>
+        <p class="font">Your cart is empty. <a href="/Index">Go shopping!</a></p>
     }
 </div>
 
@@ -65,7 +65,7 @@
         max-width: 1000px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #f9f9f9;
+        background-color: rgba(255, 238, 238, 0.9); 
         border-radius: 8px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
@@ -75,10 +75,12 @@
         text-align: center;
         font-size: 2.5rem;
         margin-bottom: 30px;
+        color: #ED4264; 
     }
 
     /* Cart table styling */
     .cart-table {
+        background-color: #FFEEEE; 
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 30px;
@@ -88,6 +90,7 @@
         padding: 15px;
         text-align: center;
         border-bottom: 1px solid #e0e0e0;
+        color: #ED4264; 
     }
 
     .cart-product {
@@ -111,18 +114,18 @@
     }
 
     .btn-secondary {
-        background-color: #ffc107;
+        background-color: #FFBBBB;
         color: #fff;
         border: none;
     }
 
     .btn-danger {
-        background-color: #dc3545;
+        background-color: #ED4264; 
         color: #fff;
     }
 
     .btn-success {
-        background-color: #28a745;
+        background-color: #DDEFBB; 
         color: #fff;
         display: inline-block;
         padding: 9px 16px;
@@ -134,9 +137,18 @@
         text-align: right;
     }
 
-    /* Total price styling */
+        /* Total price styling */
     .cart-summary strong {
         font-size: 1.5rem;
         margin-right: 20px;
+        color: #ED4264; 
     }
+
+    
+
+    .font{
+        color: #ED4264;
+        font-size:1.2rem;
+    }
+
 </style>
