@@ -43,14 +43,17 @@
                 }
             </tbody>
         </table>
-        <div class="cart-actions">
-            <div class="cart-summary">
-                <strong>Total Amount: $@(Model.cart.Sum(x => x.Quantity * x.Product.Price))</strong>
-            </div>
-            <div class="cart-buttons">
-                <a href="/Index" class="btn btn-outline-primary">Continue Shopping</a>
-                <a href="/Checkout" class="btn btn-success">Proceed to Checkout</a>
-            </div>
+
+        <div class="cart-summary">
+            <p><strong>Subtotal:</strong> $@Model.Subtotal</p>
+            <p><strong>Discount (7%):</strong> -$@Model.DiscountAmount</p>
+            <p><strong>GST (13%):</strong> +$@Model.GSTAmount</p>
+            <p><strong>Total Amount:</strong> $@Model.Total</p>
+        </div>
+
+        <div class="cart-buttons">
+            <a href="/Index" class="btn btn-outline-primary">Continue Shopping</a>
+             <a href="/Checkout" class="btn btn-success">Proceed to Checkout</a>
         </div>
     }
     else
@@ -58,6 +61,7 @@
         <p class="font">Your cart is empty. <a href="/Index">Go shopping!</a></p>
     }
 </div>
+
 
 <style>
     /* Container for cart */
@@ -105,6 +109,10 @@
         margin-right: 15px;
     }
 
+    .cart-summary{
+        color:black;
+    }
+
     /* Button styling */
     .btn {
         padding: 8px 16px;
@@ -139,12 +147,10 @@
 
         /* Total price styling */
     .cart-summary strong {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         margin-right: 20px;
         color: #ED4264; 
     }
-
-    
 
     .font{
         color: #ED4264;

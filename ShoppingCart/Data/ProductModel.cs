@@ -13,44 +13,86 @@ namespace ShoppingCart.Data
                 new Product
                 {
                     Id = 1,
-                    Name = "Product One",
-                    Price = 500,
-                    Image = "1.png"
+                    Name = "Canon Camera",
+                    Price = 4599,
+                    Image = "1.jpg"
                 },
                 new Product
                 {
                     Id = 2,
-                    Name = "Product Two",
-                    Price = 250,
-                    Image = "2.png"
+                    Name = "Air Pods Pro 2",
+                    Price =450,
+                    Image = "2.jpg"
                 },
                 new Product
                 {
                     Id = 3,
-                    Name = "Product Three",
-                    Price = 899,
-                    Image = "3.png"
+                    Name = "Audionic MN-699",
+                    Price = 350,
+                    Image = "3.jpg"
                 },
                 new Product
                 {
                     Id = 4,
-                    Name = "Product Four",
-                    Price = 699,
-                    Image = "4.png"
+                    Name = "Iphone 15 Pro Max 1TB",
+                    Price = 1099,
+                    Image = "4.jpg"
                 },
                 new Product
                 {
                     Id = 5,
-                    Name = "Product Five",
-                    Price = 450,
-                    Image = "5.png"
+                    Name = "Playstation 5 Pro",
+                    Price = 700,
+                    Image = "5.jpg"
                 },
                 new Product
                 {
                     Id = 6,
-                    Name = "Product Six",
-                    Price = 150,
-                    Image = "6.png"
+                    Name = "X-box One",
+                    Price = 499,
+                    Image = "6.jpg"
+                },
+                new Product
+                {
+                    Id = 7,
+                    Name = "Macbook Pro M3 Max 16'inch",
+                    Price = 3999,
+                    Image = "7.jpg"
+                },
+                new Product
+                {
+                    Id = 8,
+                    Name = "Macbook Air M2 14'inch",
+                    Price = 2500,
+                    Image = "8.jpg"
+                },
+                new Product
+                {
+                    Id = 9,
+                    Name = "Hp Omen",
+                    Price = 1599,
+                    Image = "9.jpg"
+                },
+                new Product
+                {
+                    Id = 10,
+                    Name = "Dell Alien-Ware",
+                    Price = 799,
+                    Image = "10.png"
+                },
+                new Product
+                {
+                    Id = 11,
+                    Name = "33W C to C type adapter",
+                    Price = 299,
+                    Image = "11.jpg"
+                },
+                new Product
+                {
+                    Id = 12,
+                    Name = "Poadcast Microphone pro",
+                    Price = 599,
+                    Image = "12.jpg"
                 },
 
             }; 
@@ -66,9 +108,5 @@ namespace ShoppingCart.Data
             var productById = Products.Where(x=>x.Id == id).FirstOrDefault();
             return productById;
         }
-
-
-    
-
     }
 }

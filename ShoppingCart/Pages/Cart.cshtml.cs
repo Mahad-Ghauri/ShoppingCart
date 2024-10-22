@@ -8,55 +8,29 @@ namespace ShoppingCart.Pages
 {
     public class CartModel : PageModel
     {
-
         public List<Item> cart;
+        public decimal Subtotal { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal GSTAmount { get; set; }
+        public decimal Total { get; set; }
 
-        //public void OnGet(int id) // To get the id of the product
-        //{
-        //    ProductModel productModel = new();// This will provide the data of the product
+        private const double DiscountPercentage = 7.0; // 7% Discount
+        private const double GstPercentage = 13.0;      // 13% GST
 
-        //    // The data saved on the variable named 'cart' get and store it in the cart variable of the type List of Item type
-        //    cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-        //    if (cart == null)
-        //    {
-        //        cart = new List<Item>()
-        //        {
-        //            new Item()
-        //            {
-        //                Product = productModel.GetProductById(id),
-        //                Quantity = 1
-        //            }
-        //        };
+        public double FinalTotalAmount { get; set; }
 
-        //        //This is used to save the data in the session so that the data is not lost if we go forward and backward on the website
-        //        SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
-        //    }
-        //    else
-        //    {
-        //        int checkID = Check_If_Exists(cart, id);
-        //        if (checkID == -1)
-        //        {
-        //            cart.Add(new Item()
-        //            {
-        //                Product = productModel.GetProductById(id),
-        //                Quantity = 1
-        //            });
-        //        }
-        //        else
-        //        {
-        //            cart[checkID].Quantity++;
-        //        }
-
-        //        //This is used to save the data in the session so that the data is not lost if we go forward and backward on the website
-        //        SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
-        //    }
-        //}
         public void OnGet(int? id = null)
         {
             ProductModel productModel = new();
 
             // Retrieve the cart from session
             cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+
+            //if (cart == null || cart.Count == 0)
+            //{
+            //    TempData["Error"] = "Your cart is empty. Please add items before checkout.";
+            //    return RedirectToPage("/Cart");
+            //}
 
             // If the cart is null, initialize it as a new empty list
             if (cart == null)
@@ -86,6 +60,12 @@ namespace ShoppingCart.Pages
                 // Save the cart to the session
                 SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
             }
+
+            CalculateCartTotals(); // Calculating the price after discount and GST
+            CalculateFinalAmount(); // Will be passed to checkout.cshtml.cs
+
+              
+
         }
 
         public void OnGetIncreaseProduct(int id)
@@ -94,12 +74,11 @@ namespace ShoppingCart.Pages
             int checkID = Check_If_Exists(cart, id);
             if (checkID != -1)
             {
-                //var increaseItem = cart.FirstOrDefault(x => x.Product.Id == id);
-                //increaseItem.Quantity++;
                 cart[checkID].Quantity++;
                 SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
             }
 
+            CalculateCartTotals();
         }
 
         public void OnGetDecreaseProduct(int id)
@@ -114,14 +93,15 @@ namespace ShoppingCart.Pages
                 }
                 else
                 {
-                    // If the quantity becomes 0, remove the product from the cart
                     cart.RemoveAt(checkID);
                 }
                 SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
             }
+
+            CalculateCartTotals();
         }
 
-        public void OnGetRemoveProduct(int id)  
+        public void OnGetRemoveProduct(int id)
         {
             cart = SessionService.GetSessionObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             int index = Check_If_Exists(cart, id);
@@ -130,7 +110,10 @@ namespace ShoppingCart.Pages
                 cart.RemoveAt(index);
                 SessionService.SetSessionObjectAsJson(HttpContext.Session, "cart", cart);
             }
+
+            CalculateCartTotals();
         }
+
         private int Check_If_Exists(List<Item> cart, int id)
         {
             for (int i = 0; i < cart.Count; i++)
@@ -141,6 +124,33 @@ namespace ShoppingCart.Pages
                 }
             }
             return -1;
+        }
+
+        private void CalculateCartTotals()
+        {
+            // Calculate the subtotal (before discount)
+            Subtotal = cart.Sum(item => item.Quantity * (decimal)item.Product.Price);
+
+            // Calculate the discount amount using the defined constant
+            DiscountAmount = Subtotal * (decimal)(DiscountPercentage / 100);
+
+            // Calculate the total after discount
+            var discountedTotal = Subtotal - DiscountAmount;
+
+            // Calculate GST (13% of the discounted total) using the defined constant
+            GSTAmount = discountedTotal * (decimal)(GstPercentage / 100);
+
+            // Calculate the final total (discounted total + GST)
+            Total = discountedTotal + GSTAmount;
+        }
+
+        private void CalculateFinalAmount()
+        {
+            var subtotal = cart.Sum(x => x.Quantity * x.Product.Price);
+            var discountAmount = subtotal * (DiscountPercentage / 100);
+            var subtotalAfterDiscount = subtotal - discountAmount;
+            var gstAmount = subtotalAfterDiscount * (GstPercentage / 100);
+            FinalTotalAmount = subtotalAfterDiscount + gstAmount;
         }
     }
 }

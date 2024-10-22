@@ -18,6 +18,8 @@ namespace ShoppingCart.Pages
         [BindProperty]
         public string PaymentMethod { get; set; }
 
+        //public double FinalTotalAmount {  get; set; }
+
     
         public IActionResult OnGet()
         {
@@ -25,9 +27,17 @@ namespace ShoppingCart.Pages
 
             if (cart == null || cart.Count == 0)
             {
+                //Temporary Message
                 TempData["Error"] = "Your cart is empty. Please add items before checkout.";
                 return RedirectToPage("/Cart"); 
             }
+
+            // Retrieve the final total amount from TempData
+            //if (TempData["FinalTotalAmount"] != null)
+            //{
+            //    FinalTotalAmount = Convert.ToDouble(TempData["FinalTotalAmount"]);
+            //}
+
 
             return Page();
         }
